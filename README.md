@@ -2,7 +2,13 @@
 
 [Nest](https://github.com/nestjs/nest) документация.
 
-## Installation
+## Выкачка проекта
+
+1. Открываем Git Bash или другую консоль
+2. Переходим в папку в которую хотим загрузить проект
+3. Выполняем команду **git clone https://github.com/dclxxxvi/rezh_server.git**
+
+## Установка пакетов
 
 ```bash
 $ npm install
