@@ -4,9 +4,10 @@
 
 ## Выкачка проекта
 
-1. Открываем Git Bash или другую консоль
-2. Переходим в папку в которую хотим загрузить проект
-3. Выполняем команду **git clone https://github.com/dclxxxvi/rezh_server.git**
+1. Качаем Git: https://gitforwindows.org/
+2. Открываем Git Bash
+3. Переходим в папку в которую хотим загрузить проект
+4. Выполняем команду **git clone https://github.com/dclxxxvi/rezh_server.git**
 
 ## Установка пакетов
 
