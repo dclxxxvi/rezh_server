@@ -1,6 +1,5 @@
-## Description
-
-[Nest](https://github.com/nestjs/nest) документация.
+## Электронный портал города Реж (Сервер)
+Сервер электронного портала города Реж. Разработан с использованием [NestJS](https://github.com/nestjs/nest). Для базы данных используется PostgreSQL, ORM - Sequelize.
 
 ## Выкачка проекта
 
