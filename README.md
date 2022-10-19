@@ -29,7 +29,7 @@ $ npm install
 9. Поднимаем бэк командой в терминале **npm run start**
 
 
-## Running the app
+## Запуск приложения
 
 ```bash
 # development
@@ -40,17 +40,4 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
