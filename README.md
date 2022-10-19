@@ -20,7 +20,7 @@ $ npm install
 6. В появившемся окне введите название БД(Поле Database): **rezh_web_service**
 7. Пользователь: **postgres**
 8. Не закрываем pgAdmin, база создана
-9. Поднимаем бэк командой в терминале **npm run start:dev**
+9. Поднимаем бэк командой в терминале **npm run start**
 
 
 ## Running the app
