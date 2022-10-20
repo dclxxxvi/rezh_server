@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 	constructor(private userService: UsersService) {}
+
 	@Get() 
 	getAll() {
 		return this.userService.getAll();
@@ -23,5 +25,10 @@ export class UsersController {
 	@Get('/:id')
 	getById(@Param('id') id: number) {
 		return this.userService.getById(id);
+	}
+
+	@Post('/role')
+	addRole(@Body() dto: AddRoleDto) {
+		return this.userService.addRole(dto);
 	}
 }

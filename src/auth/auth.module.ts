@@ -12,7 +12,7 @@ import { RolesGuard } from './roles.guard';
 		forwardRef(() => UsersModule),
 		JwtModule.register({
 			secret: process.env.JWT_KEY || 'secret',
-			signOptions: { expiresIn: process.env.EXPIRESIN || '30m' },
+			signOptions: { expiresIn: process.env.EXPIRESIN },
 		  }),
 	],
 	exports: [

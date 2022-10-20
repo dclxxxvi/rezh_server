@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { RolesService } from './roles.service';
@@ -7,6 +8,7 @@ import { RolesService } from './roles.service';
 export class RolesController {
 	constructor(private rolesService: RolesService) {}
 
+	@Roles("USER")
 	@UseGuards(RolesGuard)
     @Post()
     create(@Body() dto: CreateRoleDto) {

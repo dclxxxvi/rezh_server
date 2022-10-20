@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './users.model';
 import { genSalt, hash, compare } from 'bcrypt';
 import { RolesService } from 'src/roles/roles.service';
+import { AddRoleDto } from './dto/add-role.dto';
 
 @Injectable()
 export class UsersService {
@@ -46,5 +47,15 @@ export class UsersService {
 	async deleteById(id: number): Promise<string> {
 		await this.userRepository.destroy({where: {id}});
 		return `Пользователь c id: ${id} был успешно удален`;
+	}
+
+	async addRole(dto: AddRoleDto) {
+		const user = await this.userRepository.findByPk(dto.userId);
+		const role = await this.rolesService.getRoleByValue(dto.value);
+		if (role && user) {
+			await user.$add('role', role.id);
+			return `Роль ${dto.value} успешно добавлена пользователю с id ${dto.userId}`;
+		}
+		throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND);
 	}
 }
