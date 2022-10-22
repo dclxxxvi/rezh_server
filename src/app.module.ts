@@ -9,6 +9,9 @@ import { User } from './users/users.model';
 import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
+import { NewsModule } from './news/news.module';
+import { News } from './news/news.model';
+import { FilesModule } from './files/files.module';
 
 @Module({
 	imports: [
@@ -23,7 +26,7 @@ import { UserRoles } from './roles/user-roles.model';
 			username: process.env.POSTGRES_USER,
 			password: process.env.POSTGRES_PASSWORD,
 			database: process.env.POSTGRES_DB,
-			models: [User, Role, UserRoles],
+			models: [User, Role, UserRoles, News],
 			autoLoadModels: true,
 		}),
 		ServeStaticModule.forRoot({
@@ -32,6 +35,8 @@ import { UserRoles } from './roles/user-roles.model';
 		UsersModule,
 		AuthModule,
 		RolesModule,
+		NewsModule,
+		FilesModule,
 	],
 })
 export class AppModule {}
