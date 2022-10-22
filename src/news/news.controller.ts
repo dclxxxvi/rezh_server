@@ -20,7 +20,7 @@ export class NewsController {
         @Req() req: IRequest, 
         @UploadedFile(
             new ParseFilePipeBuilder()
-                .addMaxSizeValidator({maxSize: 4000})
+                // .addMaxSizeValidator({maxSize: 4000})
                 .addFileTypeValidator({fileType: 'image'})
                 .build({
                     errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
