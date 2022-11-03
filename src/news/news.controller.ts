@@ -1,5 +1,5 @@
 import { CreateNewsDto } from './dto/create-news.dto';
-import { Body, Controller, Delete, FileTypeValidator, Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, ParseFilePipeBuilder, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, FileTypeValidator, Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, ParseFilePipeBuilder, Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Request } from 'express';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -16,8 +16,8 @@ export class NewsController {
 	@UseGuards(RolesGuard)
     @UseInterceptors(FileInterceptor('image'))
     create(
-        @Body() dto: CreateNewsDto, 
-        @Req() req: IRequest, 
+        @Body() dto: CreateNewsDto,
+        @Req() req: IRequest,
         @UploadedFile(
             new ParseFilePipeBuilder()
                 // .addMaxSizeValidator({maxSize: 4000})
@@ -31,8 +31,8 @@ export class NewsController {
     }
 
     @Get()
-    getAll() {
-        return this.newsService.getAll();
+    getAll(@Query() { limit, page, query, order }) {
+        return this.newsService.getAll(limit, page, query, order);
     }
 
     @Get(':id')

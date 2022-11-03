@@ -98,7 +98,7 @@ Content-Type: image/jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Получить все новости
-GET http://localhost:5000/news HTTP/1.1
+GET http://localhost:5000/news?limit=3&offset=6 HTTP/1.1
 
 ### Получить одну новость
 GET http://localhost:5000/news/17 HTTP/1.1
