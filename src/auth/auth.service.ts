@@ -31,10 +31,6 @@ export class AuthService {
 		return this.generateToken(user);
 	}
 
-    async refresh(token: string) {
-
-    }
-
 	async registration(userDto: CreateUserDto) {
         const candidate = await this.usersService.getByEmail(userDto.email);
         if (candidate) {

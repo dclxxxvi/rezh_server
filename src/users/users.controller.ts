@@ -1,4 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Roles } from 'src/auth/roles-auth.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { IRequest } from 'src/types/Request';
 import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
@@ -11,6 +14,13 @@ export class UsersController {
 	getAll() {
 		return this.userService.getAll();
 	}
+
+    @Get('/me')
+    @Roles('USER')
+    @UseGuards(RolesGuard)
+    getMe(@Req() req: IRequest) {
+        return this.userService.getById(req.user.id);
+    }
 
 	@Post()
 	create(@Body() userDto: CreateUserDto) {
