@@ -18,7 +18,7 @@ export class NewsService {
     }
 
     async getAll(limit: number = 10, page: number = 0, query: any, order: any) {
-        const offset = page * limit;
+        const offset = (page - 1) * limit;
         const news = this.newsRepository.findAndCountAll({where: {}, limit, offset});
         return news;
     }
