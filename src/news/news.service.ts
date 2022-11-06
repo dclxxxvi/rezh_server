@@ -13,7 +13,7 @@ export class NewsService {
 
     async create(dto: CreateNewsDto, file: Express.Multer.File, created_by: number) {
         const image = this.filesService.createFile(FileType.NEWS_IMAGE, file);
-        const news = this.newsRepository.create({...dto, created_by, image});
+        const news = await this.newsRepository.create({...dto, created_by, image});
         return news;
     }
 
