@@ -4,7 +4,8 @@ import * as uuid from 'uuid';
 import * as fs from 'fs';
 
 export enum FileType {
-    NEWS_IMAGE = 'news/images'
+	REQUESTS_FILES = 'requests/files',
+    NEWS_IMAGE = 'news/images',
 }
 
 @Injectable()
@@ -25,6 +26,19 @@ export class FilesService {
 				HttpStatus.INTERNAL_SERVER_ERROR
 			);
 		}
+	}
+
+	createFiles(type: FileType, files: Express.Multer.File[]) {
+		try {
+			return files
+				.map(file => this.createFile(type, file));
+		} catch (e) {
+			throw new HttpException(
+				e.message,
+				HttpStatus.INTERNAL_SERVER_ERROR
+			);
+		}
+
 	}
 
 	removeFile(fileName: string) {

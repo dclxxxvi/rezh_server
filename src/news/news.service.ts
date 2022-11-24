@@ -19,12 +19,12 @@ export class NewsService {
 
     async getAll(limit: number = 10, page: number = 0, query: any, order: any) {
         const offset = (page - 1) * limit;
-        const news = this.newsRepository.findAndCountAll({where: {}, limit, offset});
+        const news = await this.newsRepository.findAndCountAll({where: {}, limit, offset});
         return news;
     }
 
     async getById(id: number) {
-        const news = this.newsRepository.findByPk(id);
+        const news = await this.newsRepository.findByPk(id);
         return news;
     }
 
