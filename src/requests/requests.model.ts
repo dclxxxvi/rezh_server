@@ -31,6 +31,9 @@ export class Request extends Model<Request, CreateRequestAttrs> {
 	@Column({type: DataType.ARRAY(DataType.STRING)})
 	files: string[];
 
+	@Column({type: DataType.BOOLEAN})
+	frequent: boolean;
+
 	@Column({type: DataType.INTEGER})
 	user_id: number;
 
@@ -57,6 +60,9 @@ export class Request extends Model<Request, CreateRequestAttrs> {
 
     @Column({type: DataType.BOOLEAN})
 	moderated: boolean;
+
+	@Column({type: DataType.BOOLEAN})
+	approved: boolean;
 
     @Column({type: DataType.STRING})
 	moderating_text: string;

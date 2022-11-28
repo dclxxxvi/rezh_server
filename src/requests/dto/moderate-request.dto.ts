@@ -1,4 +1,4 @@
 export interface ModerateRequestDto {
-    moderated: boolean;
+    approved: boolean;
     moderating_text: string;
 }

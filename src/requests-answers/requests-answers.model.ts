@@ -2,8 +2,10 @@ import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, Model, 
 import { Request } from "../requests/requests.model";
 
 interface CreateRequestAnswerAttrs {
-	readonly email: string;
+	readonly text: string;
 	readonly password: string;
+	readonly files: string[];
+	readonly answerer_id: number;
 }
 
 @Table({tableName: 'answers'})
@@ -25,5 +27,5 @@ export class RequestAnswer extends Model<RequestAnswer, CreateRequestAnswerAttrs
 
     @ForeignKey(() => Request)
     @Column({type: DataType.INTEGER})
-    request_id: number
+    request_id: number;
 }

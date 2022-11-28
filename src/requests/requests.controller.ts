@@ -24,8 +24,8 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 export class RequestsController {
     constructor(private requestsService: RequestsService) {}
 
-    @Roles("ADMIN", "DEPUTAT")
-	@UseGuards(RolesGuard)
+    @Roles('ADMIN', 'DEPUTAT')
+    @UseGuards(RolesGuard)
     @Get()
     getAll(@Query() { limit, page, query, order }) {
         return this.requestsService.getAll(limit, page, query, order);
@@ -33,7 +33,7 @@ export class RequestsController {
 
     @Get('/:id')
     getOne(@Param('id') id: number) {
-        
+        return this.requestsService.getById(id);
     }
 
     @Post()
@@ -44,19 +44,21 @@ export class RequestsController {
     }
 
     @Patch('/:id')
-    edit(@Param('id') id: number, @Body() dto: CreateRequestDto) {
-
+    @UseGuards(RolesGuard)
+    @UseInterceptors(FilesInterceptor('files[]'))
+    edit(@Param('id') id: number, @Body() dto: CreateRequestDto, @Req() req: IRequest, @UploadedFiles() files: Express.Multer.File[]) {
+        return this.requestsService.edit(id, dto, req, files);
     }
 
     @Delete('/:id')
     delete(@Param('id') id: number) {
-
+        return this.requestsService.delete(id);
     }
 
     @Roles('ADMIN')
     @UseGuards(RolesGuard)
-    @Put('/operate/:id')
-    operate(@Param('id') id: number, dto: ModerateRequestDto) {
-        
+    @Put('/moderate/:id')
+    moderate(@Param('id') id: number, @Body() dto: ModerateRequestDto) {
+        return this.requestsService.moderate(id, dto);
     }
 }
