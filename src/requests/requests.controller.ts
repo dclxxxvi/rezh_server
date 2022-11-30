@@ -38,15 +38,15 @@ export class RequestsController {
 
     @Post()
     @UseGuards(RolesGuard)
-    @UseInterceptors(FilesInterceptor('files[]'))
-    create(@Body() dto: CreateRequestDto, @Req() req: IRequest, @UploadedFiles() files: Express.Multer.File[]) {
+    @UseInterceptors(FilesInterceptor('files'))
+    create(@Body() dto: CreateRequestDto, @Req() req: IRequest, @UploadedFiles() files: Array<Express.Multer.File>) {
         return this.requestsService.create(dto, req, files);
     }
 
     @Patch('/:id')
     @UseGuards(RolesGuard)
-    @UseInterceptors(FilesInterceptor('files[]'))
-    edit(@Param('id') id: number, @Body() dto: CreateRequestDto, @Req() req: IRequest, @UploadedFiles() files: Express.Multer.File[]) {
+    @UseInterceptors(FilesInterceptor('files'))
+    edit(@Param('id') id: number, @Body() dto: CreateRequestDto, @Req() req: IRequest, @UploadedFiles() files: Array<Express.Multer.File>) {
         return this.requestsService.edit(id, dto, req, files);
     }
 

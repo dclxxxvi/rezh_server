@@ -46,6 +46,9 @@ content-type: application/json
     "password": "12345"
 }
 
+### Получить юзера по токену
+GET http://localhost:5000/auth/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6NSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6NSwicm9sZV9pZCI6MX19LHsiaWQiOjIsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6ItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjo1LCJyb2xlX2lkIjoyfX1dLCJpYXQiOjE2NjY0NTY5MTYsImV4cCI6MTY3NDIzMjkxNn0.og6U6_b8wGEVxVjAROJt_KT4Y3eTiomtcf6hwFVxAcE
 
 ### Добавить роль
 POST http://localhost:5000/users/role HTTP/1.1
@@ -156,12 +159,12 @@ Content-Disposition: form-data; name="frequent"
 
 true
 ------WebKitFormBoundary7MA4YWykTrZu0gW
-Content-Disposition: form-data; name="files[]"; filename="1.jpg"
+Content-Disposition: form-data; name="files"; filename="1.jpg"
 Content-Type: image/jpg
 
 < ./1.jpg
 ------WebKitFormBoundary7MA4YWykTrZu0gW
-Content-Disposition: form-data; name="files[]"; filename="1.jpg"
+Content-Disposition: form-data; name="files"; filename="1.jpg"
 Content-Type: image/jpg
 
 < ./1.jpg

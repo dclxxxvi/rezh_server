@@ -12,6 +12,10 @@ export class AuthService {
 		private jwtService: JwtService,
 	) {}
 
+	async getMe(id: number) {
+		return await this.usersService.getById(id);
+	}
+
 	async validateUser(dto: CreateUserDto): Promise<User> {
 		const {email, password} = dto;
 		const user = await this.usersService.getByEmail(email);
