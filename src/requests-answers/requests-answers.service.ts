@@ -5,6 +5,7 @@ import { FilesService, FileType } from '../files/files.service';
 import { RequestAnswer } from './requests-answers.model';
 import { CreateAnswerDto } from './dto/CreateAnswer.dto';
 import { RequestsService } from '../requests/requests.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class RequestsAnswersService {
@@ -12,6 +13,7 @@ export class RequestsAnswersService {
         @InjectModel(RequestAnswer) private readonly requestAnswerRepository: typeof RequestAnswer,
         private filesService: FilesService,
         private requestsService: RequestsService,
+        private usersService: UsersService,
     ) {}
 
     async getAll() {
@@ -19,7 +21,7 @@ export class RequestsAnswersService {
     }
 
     async getById(id: number) {
-        return await this.requestAnswerRepository.findByPk(id);
+        return await this.requestAnswerRepository.findByPk(id, { include: { all: true } });
     }
 
     async addAnswer(dto: CreateAnswerDto, request_id: number, answerer_id: number, _files: Express.Multer.File[]) {
@@ -28,11 +30,15 @@ export class RequestsAnswersService {
             throw new NotFoundException({}, 'Обращение с указанным id не найдено');
         }
         const files = this.filesService.createFiles(FileType.REQUESTS_ANSWERS_FILES, _files);
-        const answer = await this.requestAnswerRepository.create({ ...dto, answerer_id, files });
-        answer.request_id = request_id;
+        const user = await this.usersService.getById(answerer_id);
+
+        const answer = await this.requestAnswerRepository.create({ ...dto, files });
+        await answer.$set('user', user);
+        await answer.save();
 
         await request.$set('answer', answer);
         await request.set('frequent', dto.frequent);
+        await request.set('answer_id', answer.id);
         await request.save();
         request.answer = answer;
         return answer;

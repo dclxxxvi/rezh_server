@@ -4,7 +4,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluMTIzQG1haWwucnUiLCJpZCI6Mywicm9sZXMiOlt7ImlkIjoyLCJ2YWx1ZSI6IkFETUlOIiwiZGVzY3JpcHRpb24iOiLQkNCU0LzQuNC90LjRgdGC0YDQsNGC0L7RgCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMDJUMTA6MDQ6MjAuMDU2WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMDJUMTA6MDQ6MjAuMDU2WiJ9XSwiaWF0IjoxNjY1NDE3MzMyLCJleHAiOjE2NjYwMjIxMzJ9.J9OL9XucHgJ3I_yAkighl7YoqdI7NvmjUDg8yy0EyYU
 
 ### Получить пользователя по айди
-GET http://localhost:5000/users/6 HTTP/1.1
+GET http://localhost:5000/users/5 HTTP/1.1
 
 ### Удалить пользователя по айди
 DELETE http://localhost:5000/users/6 HTTP/1.1
@@ -145,8 +145,11 @@ DELETE http://localhost:5000/requests/1 HTTP/1.1
 ### Получить все ответы на обращения
 GET http://localhost:5000/requests/answers HTTP/1.1
 
+### Получить оДин ответ
+GET http://localhost:5000/requests/answers/7 HTTP/1.1
+
 ### Создать ответ на обращение
-POST http://localhost:5000/requests/answers/1 HTTP/1.1
+POST http://localhost:5000/requests/answers/3 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6NSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6NSwicm9sZV9pZCI6MX19LHsiaWQiOjIsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6ItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjo1LCJyb2xlX2lkIjoyfX0seyJpZCI6OCwidmFsdWUiOiJERVBVVEFUIiwiZGVzY3JpcHRpb24iOiLQlNC10L_Rg9GC0LDRgiIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjJUMTY6NDI6NDguMjYxWiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjJUMTY6NDI6NDguMjYxWiIsIlVzZXJSb2xlcyI6eyJpZCI6OCwidXNlcl9pZCI6NSwicm9sZV9pZCI6OH19XSwiaWF0IjoxNjY5NDY0ODIyLCJleHAiOjE2NzcyNDA4MjJ9.AHbnD7lEPf8M1ylW5dqxWAEsK1sF3VguFu_CC8a1q8M
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWykTrZu0gW
 

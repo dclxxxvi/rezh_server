@@ -6,6 +6,8 @@ import { IRequest } from '../types/Request';
 import { FilesService, FileType } from '../files/files.service';
 import { JwtService } from '@nestjs/jwt';
 import { ModerateRequestDto } from './dto/moderate-request.dto';
+import { RequestAnswer } from '../requests-answers/requests-answers.model';
+import { User } from '../users/users.model';
 
 @Injectable()
 export class RequestsService {
@@ -19,14 +21,25 @@ export class RequestsService {
         const offset = page ?? (page - 1) * limit;
         const requests = await this.requestRepository.findAndCountAll({
             where: {
-                ...query
-            }, limit, offset, include: { all: true },
+                ...query,
+            },
+            limit,
+            offset,
+            include: [{
+                model: RequestAnswer,
+                include: [{ model: User, attributes: { exclude: ['password', 'roles'] } }],
+            }],
         });
         return requests;
     }
 
     async getById(id: number) {
-        const request = await this.requestRepository.findByPk(id);
+        const request = await this.requestRepository.findByPk(id, {
+            include: [{
+                model: RequestAnswer,
+                include: [{ model: User, attributes: { exclude: ['password', 'roles'] } }],
+            }],
+        });
         return request;
     }
 

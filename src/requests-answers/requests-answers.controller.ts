@@ -34,7 +34,7 @@ export class RequestsAnswersController {
 
     @UseGuards(RolesGuard)
     @Roles('DEPUTAT')
-    @UseInterceptors(FilesInterceptor('files[]'))
+    @UseInterceptors(FilesInterceptor('files'))
     @Post('/:id')
     addAnswer(@Body() dto: CreateAnswerDto, @Param('id') requestId: number, @Req() req: IRequest, @UploadedFiles() files: Express.Multer.File[]) {
         return this.requestsAnswersService.addAnswer(dto, requestId, req.user.id, files);
