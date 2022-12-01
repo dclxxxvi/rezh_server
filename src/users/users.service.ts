@@ -23,15 +23,18 @@ export class UsersService {
         return users;
     }
 
-    async getDeputats() {
-        const users = await this.userRepository.findAll({
+    async getDeputats(limit, page, query, order) {
+        const offset = page ?? (page - 1) * limit;
+        const users = await this.userRepository.findAndCountAll({
+            limit,
+            offset,
             include: [{
                 model: Role,
                 where: {
-                    value: 'DEPUTAT'
-                }
+                    value: 'DEPUTAT',
+                },
             }],
-            attributes: {exclude: ['password']},
+            attributes: { exclude: ['password'] },
 
         });
         return users;

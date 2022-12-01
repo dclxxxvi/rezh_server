@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { IRequest } from 'src/types/Request';
@@ -8,17 +8,17 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-	constructor(private userService: UsersService) {}
+    constructor(private userService: UsersService) {}
 
-	@Get() 
-	getAll() {
-		return this.userService.getAll();
-	}
+    @Get()
+    getAll() {
+        return this.userService.getAll();
+    }
 
-	@Get('/deputats')
-	getDeputats() {
-		return this.userService.getDeputats();
-	}
+    @Get('/deputats')
+    getDeputats(@Query() { limit, page, query, order }) {
+        return this.userService.getDeputats(limit, page, query, order);
+    }
 
     @Get('/me')
     @Roles('USER')
@@ -27,23 +27,23 @@ export class UsersController {
         return this.userService.getById(req.user.id);
     }
 
-	@Post()
-	create(@Body() userDto: CreateUserDto) {
-		return this.userService.create(userDto);
-	}
+    @Post()
+    create(@Body() userDto: CreateUserDto) {
+        return this.userService.create(userDto);
+    }
 
-	@Delete('/:id')
-	deleteById(@Param('id') id: number) {
-		return this.userService.deleteById(id);
-	}
+    @Delete('/:id')
+    deleteById(@Param('id') id: number) {
+        return this.userService.deleteById(id);
+    }
 
-	@Get('/:id')
-	getById(@Param('id') id: number) {
-		return this.userService.getById(id);
-	}
+    @Get('/:id')
+    getById(@Param('id') id: number) {
+        return this.userService.getById(id);
+    }
 
-	@Post('/role')
-	addRole(@Body() dto: AddRoleDto) {
-		return this.userService.addRole(dto);
-	}
+    @Post('/role')
+    addRole(@Body() dto: AddRoleDto) {
+        return this.userService.addRole(dto);
+    }
 }
