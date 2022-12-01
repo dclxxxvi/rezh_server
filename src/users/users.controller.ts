@@ -15,6 +15,11 @@ export class UsersController {
 		return this.userService.getAll();
 	}
 
+	@Get('/deputats')
+	getDeputats() {
+		return this.userService.getDeputats();
+	}
+
     @Get('/me')
     @Roles('USER')
     @UseGuards(RolesGuard)
