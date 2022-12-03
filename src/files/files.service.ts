@@ -6,7 +6,8 @@ import * as fs from 'fs';
 export enum FileType {
     REQUESTS_FILES = 'requests/files',
     NEWS_IMAGE = 'news/images',
-    REQUESTS_ANSWERS_FILES = 'requests/answers/files'
+    REQUESTS_ANSWERS_FILES = 'requests/answers/files',
+    AVATARS_IMAGES = 'users/avatars',
 }
 
 @Injectable()

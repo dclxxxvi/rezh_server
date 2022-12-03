@@ -8,11 +8,13 @@ import { JwtService } from '@nestjs/jwt';
 import { ModerateRequestDto } from './dto/moderate-request.dto';
 import { RequestAnswer } from '../requests-answers/requests-answers.model';
 import { User } from '../users/users.model';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class RequestsService {
     constructor(
         @InjectModel(Request) private readonly requestRepository: typeof Request,
+        private usersService: UsersService,
         private filesService: FilesService,
         private jwtService: JwtService,
     ) {}
@@ -28,6 +30,9 @@ export class RequestsService {
             include: [{
                 model: RequestAnswer,
                 include: [{ model: User, attributes: { exclude: ['password', 'roles'] } }],
+            }, {
+                model: User,
+                attributes: { exclude: ['password', 'roles'] },
             }],
         });
         return requests;
@@ -35,10 +40,18 @@ export class RequestsService {
 
     async getById(id: number) {
         const request = await this.requestRepository.findByPk(id, {
-            include: [{
-                model: RequestAnswer,
-                include: [{ model: User, attributes: { exclude: ['password', 'roles'] } }],
-            }],
+            include: [
+                {
+                    model: RequestAnswer,
+                    include: [{
+                        model: User,
+                        attributes: { exclude: ['password', 'roles'] },
+                    }],
+                },
+                {
+                    model: User,
+                    attributes: { exclude: ['password', 'roles'] },
+                }],
         });
         return request;
     }
@@ -46,7 +59,13 @@ export class RequestsService {
     async create(dto: CreateRequestDto, req: IRequest, _files: Express.Multer.File[]) {
         const user_id = this.jwtService.verify(req.headers.authorization?.split(' ')?.[1])?.id;
         const files = this.filesService.createFiles(FileType.REQUESTS_FILES, _files);
+        const deputat = dto.deputat_id && await this.usersService.getById(dto.deputat_id);
         const request = await this.requestRepository.create({ ...dto, files, user_id });
+        if (deputat) {
+            await request.$set('deputat', deputat);
+            await request.save();
+            request.deputat = deputat;
+        }
         return request;
     }
 

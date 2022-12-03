@@ -41,11 +41,11 @@ export class UsersService {
     }
 
     async getById(id: number): Promise<User> {
-        const user = await this.userRepository.findOne({ where: { id }, include: { all: true } });
+        const user = await this.userRepository.findOne({ where: { id }, include: { model: Role } });
         return user;
     }
 
-    async create(dto: CreateUserDto): Promise<User> {
+    async create(dto: CreateUserDto, avatar?: Express.Multer.File): Promise<User> {
         const existedUser = await this.getByEmail(dto.email);
         if (existedUser) {
             throw new HttpException('Пользователь с таким email уже существует', HttpStatus.BAD_REQUEST);
@@ -54,7 +54,8 @@ export class UsersService {
         if (!role) {
             throw new HttpException('Роль USER не определена', HttpStatus.BAD_REQUEST);
         }
-        const user = await this.userRepository.create(dto);
+
+        const user = await this.userRepository.create({ ...dto });
         user.$set('roles', [role.id]);
         user.roles = [role];
         return user;

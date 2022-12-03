@@ -18,7 +18,7 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 import { RequestsAnswersService } from './requests-answers.service';
 import { where } from 'sequelize';
 
-@Controller('requests/answers')
+@Controller('requests_answers')
 export class RequestsAnswersController {
     constructor(private requestsAnswersService: RequestsAnswersService) {}
 

@@ -1,5 +1,6 @@
-import { Column, DataType, ForeignKey, HasOne, Model, Table } from "sequelize-typescript";
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { RequestAnswer } from "../requests-answers/requests-answers.model";
+import { User } from '../users/users.model';
 
 interface CreateRequestAttrs {
 	readonly title: string;
@@ -55,9 +56,6 @@ export class Request extends Model<Request, CreateRequestAttrs> {
     @Column({type: DataType.STRING})
 	organization_name: string;
 
-    @Column({type: DataType.STRING})
-	deputat_id: number;
-
     @Column({type: DataType.BOOLEAN})
 	moderated: boolean;
 
@@ -66,6 +64,13 @@ export class Request extends Model<Request, CreateRequestAttrs> {
 
     @Column({type: DataType.STRING})
 	moderating_text: string;
+
+	@BelongsTo(() => User)
+	deputat: User;
+
+	@ForeignKey(() => User)
+	@Column({type: DataType.INTEGER})
+	deputat_id: number;
 
     @HasOne(() => RequestAnswer)
     answer: RequestAnswer;

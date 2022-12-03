@@ -6,6 +6,7 @@ import { RequestAnswer } from './requests-answers.model';
 import { CreateAnswerDto } from './dto/CreateAnswer.dto';
 import { RequestsService } from '../requests/requests.service';
 import { UsersService } from '../users/users.service';
+import { User } from '../users/users.model';
 
 @Injectable()
 export class RequestsAnswersService {
@@ -17,17 +18,39 @@ export class RequestsAnswersService {
     ) {}
 
     async getAll() {
-        return await this.requestAnswerRepository.findAll({ where: {}, include: { all: true } });
+        return await this.requestAnswerRepository.findAll({
+            where: {},
+            include: [
+                {
+                    model: User, attributes: { exclude: ['password', 'roles'] },
+                },
+                {
+                    model: Request, include: [{ model: User, attributes: { exclude: ['password', 'roles'] } }],
+                },
+            ],
+        });
     }
 
     async getById(id: number) {
-        return await this.requestAnswerRepository.findByPk(id, { include: { all: true } });
+        return await this.requestAnswerRepository.findByPk(id, {
+            include: [
+                {
+                    model: User, attributes: { exclude: ['password', 'roles'] },
+                },
+                {
+                    model: Request, include: [{ model: User, attributes: { exclude: ['password', 'roles'] } }],
+                },
+            ],
+        });
     }
 
     async addAnswer(dto: CreateAnswerDto, request_id: number, answerer_id: number, _files: Express.Multer.File[]) {
         const request = await this.requestsService.getById(request_id);
         if (!request) {
             throw new NotFoundException({}, 'Обращение с указанным id не найдено');
+        }
+        if (request.answer) {
+            await this.deleteAnswer(request.answer.id);
         }
         const files = this.filesService.createFiles(FileType.REQUESTS_ANSWERS_FILES, _files);
         const user = await this.usersService.getById(answerer_id);

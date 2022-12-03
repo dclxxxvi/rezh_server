@@ -6,13 +6,16 @@ import { Request } from './requests.model';
 import { FilesModule } from '../files/files.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { User } from '../users/users.model';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   controllers: [RequestsController],
   providers: [RequestsService],
   imports: [
-      SequelizeModule.forFeature([Request]),
+      SequelizeModule.forFeature([Request, User]),
       FilesModule,
+      UsersModule,
       JwtModule.registerAsync({
           imports: [ConfigModule],
           useFactory: async (configService: ConfigService) => ({

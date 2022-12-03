@@ -1,7 +1,6 @@
 export interface CreateRequestDto {
     title: string;
     text: string;
-    files: string[];
     email: string;
     first_name: string;
     second_name: string;
