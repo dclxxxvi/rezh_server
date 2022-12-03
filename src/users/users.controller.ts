@@ -1,10 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, Req, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Patch,
+    Post,
+    Query,
+    Req, UploadedFile,
+    UseGuards,
+    UseInterceptors,
+} from '@nestjs/common';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { IRequest } from 'src/types/Request';
 import { AddRoleDto } from './dto/add-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 export class UsersController {
@@ -30,6 +43,14 @@ export class UsersController {
     @Post()
     create(@Body() userDto: CreateUserDto) {
         return this.userService.create(userDto);
+    }
+
+    @Patch('/me')
+    @UseGuards(RolesGuard)
+    @Roles('USER')
+    @UseInterceptors(FileInterceptor('avatar'))
+    editProfile(@Body() dto: CreateUserDto, @Req() req: IRequest, @UploadedFile() avatar: Express.Multer.File) {
+        return this.userService.editProfile(dto, req, avatar);
     }
 
     @Delete('/:id')

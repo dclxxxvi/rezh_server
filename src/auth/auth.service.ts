@@ -4,6 +4,7 @@ import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@n
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/users.model';
 import * as bcrypt from 'bcrypt';
+import { AuthUserDto } from './dto/auth-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -12,11 +13,7 @@ export class AuthService {
 		private jwtService: JwtService,
 	) {}
 
-	async getMe(id: number) {
-		return await this.usersService.getById(id);
-	}
-
-	async validateUser(dto: CreateUserDto): Promise<User> {
+	async validateUser(dto: AuthUserDto): Promise<User> {
 		const {email, password} = dto;
 		const user = await this.usersService.getByEmail(email);
 		if (!user) {
@@ -30,7 +27,7 @@ export class AuthService {
 		return user;
 	}
 
-	async login(dto: CreateUserDto) {
+	async login(dto: AuthUserDto) {
 		const user = await this.validateUser(dto);
 		return this.generateToken(user);
 	}

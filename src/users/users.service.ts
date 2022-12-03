@@ -5,16 +5,19 @@ import { User } from './users.model';
 import { RolesService } from 'src/roles/roles.service';
 import { AddRoleDto } from './dto/add-role.dto';
 import { Role } from '../roles/roles.model';
+import { IRequest } from '../types/Request';
+import { FilesService, FileType } from '../files/files.service';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectModel(User) private readonly userRepository: typeof User,
         private readonly rolesService: RolesService,
+        private readonly filesService: FilesService,
     ) {}
 
     async getByEmail(email: string): Promise<User> {
-        const user = await this.userRepository.findOne({ where: { email }, include: { all: true } });
+        const user = await this.userRepository.findOne({ where: { email }, include: { model: Role } });
         return user;
     }
 
@@ -59,6 +62,23 @@ export class UsersService {
         user.$set('roles', [role.id]);
         user.roles = [role];
         return user;
+    }
+
+    async editProfile(dto: CreateUserDto, req: IRequest, _avatar: Express.Multer.File) {
+        const user = await this.getById(req.user.id);
+        if (!user) {
+            throw new HttpException('Пользователь не найден', HttpStatus.BAD_REQUEST);
+        }
+        if (_avatar && user.avatar) {
+            this.filesService.removeFile(user.avatar);
+        }
+        const avatar = _avatar
+            ? this.filesService.createFile(FileType.NEWS_IMAGE, _avatar)
+            : user.avatar;
+
+        const updated = await this.userRepository
+            .update({ ...dto, avatar }, { where: { id: user.id }, returning: true });
+        return updated[1][0];
     }
 
     async deleteById(id: number): Promise<string> {

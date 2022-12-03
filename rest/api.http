@@ -45,12 +45,32 @@ POST http://localhost:5000/auth/registration
 content-type: application/json
 
 {
-	"email": "admin@mail.ru",
-    "password": "12345"
+	"email": "deputat@mail.ru",
+    "password": "12345",
+    "first_name": "Сява"
 }
 
+### Редактирование профиля
+PATCH http://localhost:5000/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRlcHV0YXRAbWFpbC5ydSIsImlkIjoyLCJyb2xlcyI6W3siaWQiOjEsInZhbHVlIjoiVVNFUiIsImRlc2NyaXB0aW9uIjoi0J_QvtC70YzQt9C-0LLQsNGC0LXQu9GMIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQwODozMDowMy40MjRaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQwODozMDowMy40MjRaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjoyLCJyb2xlX2lkIjoxfX1dLCJpYXQiOjE2NzAxMDQxMzYsImV4cCI6MTY3Nzg4MDEzNn0.KumOcg_SOpW_d_Zii_gA9HZOqSbJV-Hvw0Q3fWGcZ_g
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="first_name"
+
+Вася
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="second_name"
+
+Петечекин
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="1.jpg"
+Content-Type: image/jpg
+
+< ./1.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
 ### Получить юзера по токену
-GET http://localhost:5000/auth/me HTTP/1.1
+GET http://localhost:5000/users/me HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6MSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MSwidXNlcl9pZCI6MSwicm9sZV9pZCI6MX19LHsiaWQiOjgsInZhbHVlIjoiREVQVVRBVCIsImRlc2NyaXB0aW9uIjoi0JTQtdC_0YPRgtCw0YIiLCJjcmVhdGVkQXQiOiIyMDIyLTEwLTIyVDE2OjQyOjQ4LjI2MVoiLCJ1cGRhdGVkQXQiOiIyMDIyLTEwLTIyVDE2OjQyOjQ4LjI2MVoiLCJVc2VyUm9sZXMiOnsiaWQiOjIsInVzZXJfaWQiOjEsInJvbGVfaWQiOjh9fSx7ImlkIjoyLCJ2YWx1ZSI6IkFETUlOIiwiZGVzY3JpcHRpb24iOiLQkNC00LzQuNC90LjRgdGC0YDQsNGC0L7RgCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMTk6MDk6MDkuMDI5WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMTk6MDk6MDkuMDI5WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6MSwicm9sZV9pZCI6Mn19XSwiaWF0IjoxNjcwMTAwNTA0LCJleHAiOjE2Nzc4NzY1MDR9.iGQW-IasoD72Av9c2eWAq7jU5WzUHxkfBCuORv-juCg
 
 ### Добавить роль
