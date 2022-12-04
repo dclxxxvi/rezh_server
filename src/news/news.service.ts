@@ -3,6 +3,8 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { News } from './news.model';
 import { FilesService, FileType } from 'src/files/files.service';
+import { Op } from 'sequelize';
+import { NewsQuery } from './dto/news-query-params.dto';
 
 @Injectable()
 export class NewsService {
@@ -17,9 +19,18 @@ export class NewsService {
         return news;
     }
 
-    async getAll(limit: number = 10, page: number = 0, query: any, order: any) {
-        const offset = (page - 1) * limit;
-        const news = await this.newsRepository.findAndCountAll({where: {}, limit, offset});
+    async getAll(limit: number = 10, page: number = 0, query: NewsQuery, order: any) {
+        const offset = (!!page && !!limit) ? (page) * limit : 0;
+        const news = await this.newsRepository.findAndCountAll({
+            limit,
+            offset,
+            where: query?.search && {
+                [Op.or]: {
+                    title: { [Op.like]: `%${ query?.search }%` },
+                    content: { [Op.like]: `%${ query?.search }%` }
+                }
+            },
+        });
         return news;
     }
 

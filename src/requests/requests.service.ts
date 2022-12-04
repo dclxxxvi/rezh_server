@@ -9,6 +9,8 @@ import { ModerateRequestDto } from './dto/moderate-request.dto';
 import { RequestAnswer } from '../requests-answers/requests-answers.model';
 import { User } from '../users/users.model';
 import { UsersService } from '../users/users.service';
+import { RequestsQuery, RequestsQueryParamsDto } from './dto/requests-query-params.dto';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class RequestsService {
@@ -19,11 +21,20 @@ export class RequestsService {
         private jwtService: JwtService,
     ) {}
 
-    async getAll(limit, page, query, order) {
-        const offset = page ?? (page - 1) * limit;
+    async getAll(limit: number = 10, page: number = 0, query: RequestsQuery, order) {
+        const offset = (!!page && !!limit) ? (page) * limit : 0;
         const requests = await this.requestRepository.findAndCountAll({
             where: {
-                ...query,
+                ...(query?.search && {
+                    [Op.or]: {
+                        title: { [Op.like]: `%${ query?.search }%` },
+                        text: { [Op.like]: `%${ query?.search }%` },
+                    },
+                }),
+                ...(query?.deputat_id && { deputat_id: query?.deputat_id }),
+                ...(query?.user_id && { user_id: query?.user_id }),
+                ...(query?.moderated && { moderated: query?.moderated }),
+                ...(query?.approved && { approved: query?.approved }),
             },
             limit,
             offset,

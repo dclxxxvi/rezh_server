@@ -1,19 +1,38 @@
 import { CreateNewsDto } from './dto/create-news.dto';
-import { Body, Controller, Delete, FileTypeValidator, Get, HttpStatus, MaxFileSizeValidator, Param, ParseFilePipe, ParseFilePipeBuilder, Post, Put, Query, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    FileTypeValidator,
+    Get,
+    HttpStatus,
+    MaxFileSizeValidator,
+    Param,
+    ParseFilePipe,
+    ParseFilePipeBuilder,
+    Post,
+    Put,
+    Query,
+    Req,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { NewsService } from './news.service';
 import { IRequest } from 'src/types/Request';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { NewsQueryParamsDto } from './dto/news-query-params.dto';
 
 @Controller('news')
 export class NewsController {
     constructor(private newsService: NewsService) {}
 
     @Post()
-    @Roles("USER")
-	@UseGuards(RolesGuard)
+    @Roles('USER')
+    @UseGuards(RolesGuard)
     @UseInterceptors(FileInterceptor('image'))
     create(
         @Body() dto: CreateNewsDto,
@@ -21,17 +40,17 @@ export class NewsController {
         @UploadedFile(
             new ParseFilePipeBuilder()
                 // .addMaxSizeValidator({maxSize: 4000})
-                .addFileTypeValidator({fileType: 'image'})
+                .addFileTypeValidator({ fileType: 'image' })
                 .build({
-                    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+                    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
                 }),
-         ) image: Express.Multer.File
+        ) image: Express.Multer.File,
     ) {
         return this.newsService.create(dto, image, req.user.id);
     }
 
     @Get()
-    getAll(@Query() { limit, page, query, order }) {
+    getAll(@Query() { query, page, order, limit }: NewsQueryParamsDto) {
         return this.newsService.getAll(limit, page, query, order);
     }
 
@@ -39,14 +58,14 @@ export class NewsController {
     getById(@Param('id') id: number) {
         return this.newsService.getById(id);
     }
-    
+
     @Delete(':id')
     delete(@Param('id') id: number) {
         return this.newsService.delete(id);
     }
 
-    @Roles("USER")
-	@UseGuards(RolesGuard)
+    @Roles('USER')
+    @UseGuards(RolesGuard)
     @UseInterceptors(FileInterceptor('image'))
     @Put(':id')
     update(
@@ -56,12 +75,12 @@ export class NewsController {
         @UploadedFile(
             new ParseFilePipeBuilder()
                 // .addMaxSizeValidator({maxSize: 4000})
-                .addFileTypeValidator({fileType: 'image'})
+                .addFileTypeValidator({ fileType: 'image' })
                 .build({
-                    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+                    errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
                 }),
-        ) image: Express.Multer.File
-     ) {
+        ) image: Express.Multer.File,
+    ) {
         return this.newsService.update(id, dto, image, req.user.id);
     }
 }

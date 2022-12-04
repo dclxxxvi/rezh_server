@@ -19,6 +19,7 @@ import { CreateRequestDto } from './dto/create-request.dto';
 import { ModerateRequestDto } from './dto/moderate-request.dto';
 import { IRequest } from '../types/Request';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { RequestsQueryParamsDto } from './dto/requests-query-params.dto';
 
 @Controller('requests')
 export class RequestsController {
@@ -27,7 +28,7 @@ export class RequestsController {
     @Roles('ADMIN', 'DEPUTAT')
     @UseGuards(RolesGuard)
     @Get()
-    getAll(@Query() { limit, page, query, order }) {
+    getAll(@Query() { limit, page, query, order }: RequestsQueryParamsDto) {
         return this.requestsService.getAll(limit, page, query, order);
     }
 

@@ -15,6 +15,7 @@ interface CreateRequestAttrs {
 	readonly organization_name: string;
 	readonly deputat_id: number;
 	readonly moderated: boolean;
+	readonly approved: boolean;
 	readonly moderating_text: string;
 }
 

@@ -27,7 +27,7 @@ export class UsersService {
     }
 
     async getDeputats(limit, page, query, order) {
-        const offset = (!!page && !!limit) ? (page - 1) * limit : 0;
+        const offset = (!!page && !!limit) ? (page) * limit : 0;
         const users = await this.userRepository.findAndCountAll({
             limit,
             offset,
