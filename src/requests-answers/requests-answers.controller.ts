@@ -16,7 +16,6 @@ import { IRequest } from '../types/Request';
 import { CreateAnswerDto } from './dto/CreateAnswer.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { RequestsAnswersService } from './requests-answers.service';
-import { where } from 'sequelize';
 
 @Controller('requests_answers')
 export class RequestsAnswersController {

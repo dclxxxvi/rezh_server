@@ -24,11 +24,13 @@ export class NewsService {
         const news = await this.newsRepository.findAndCountAll({
             limit,
             offset,
-            where: query?.search && {
-                [Op.or]: {
-                    title: { [Op.like]: `%${ query?.search }%` },
-                    content: { [Op.like]: `%${ query?.search }%` }
-                }
+            where: {
+                ...(query?.search && {
+                    [Op.or]: {
+                        title: { [Op.like]: `%${ query?.search }%` },
+                        content: { [Op.like]: `%${ query?.search }%` },
+                    },
+                }),
             },
         });
         return news;
