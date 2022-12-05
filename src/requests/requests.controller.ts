@@ -28,7 +28,7 @@ export class RequestsController {
     @Roles('ADMIN', 'DEPUTAT')
     @UseGuards(RolesGuard)
     @Get()
-    getAll(@Query() { limit, page, query, order }: RequestsQueryParamsDto) {
+    getAll(@Body() { limit, page, query, order }: RequestsQueryParamsDto) {
         return this.requestsService.getAll(limit, page, query, order);
     }
 

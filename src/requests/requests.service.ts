@@ -27,8 +27,8 @@ export class RequestsService {
             where: {
                 ...(query?.search && {
                     [Op.or]: {
-                        title: { [Op.like]: `%${ query?.search }%` },
-                        text: { [Op.like]: `%${ query?.search }%` },
+                        title: { [Op.iLike]: `%${ query?.search }%` },
+                        text: { [Op.iLike]: `%${ query?.search }%` },
                     },
                 }),
                 ...(query?.deputat_id && { deputat_id: query?.deputat_id }),

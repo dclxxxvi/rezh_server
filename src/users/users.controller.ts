@@ -29,7 +29,7 @@ export class UsersController {
     }
 
     @Get('/deputats')
-    getDeputats(@Query() { limit, page, query, order }) {
+    getDeputats(@Body() { limit, page, query, order }) {
         return this.userService.getDeputats(limit, page, query, order);
     }
 

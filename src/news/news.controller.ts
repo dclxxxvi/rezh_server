@@ -50,7 +50,7 @@ export class NewsController {
     }
 
     @Get()
-    getAll(@Query() { query, page, order, limit }: NewsQueryParamsDto) {
+    getAll(@Body() { query, page, order, limit }: NewsQueryParamsDto) {
         return this.newsService.getAll(limit, page, query, order);
     }
 

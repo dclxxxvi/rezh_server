@@ -27,8 +27,8 @@ export class NewsService {
             where: {
                 ...(query?.search && {
                     [Op.or]: {
-                        title: { [Op.like]: `%${ query?.search }%` },
-                        content: { [Op.like]: `%${ query?.search }%` },
+                        title: { [Op.iLike]: `%${ query?.search }%` },
+                        content: { [Op.iLike]: `%${ query?.search }%` },
                     },
                 }),
             },
