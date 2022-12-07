@@ -6,7 +6,6 @@ import {
     Param,
     Patch,
     Post,
-    Query,
     Req, UploadedFile,
     UseGuards,
     UseInterceptors,
@@ -28,7 +27,7 @@ export class UsersController {
         return this.userService.getAll();
     }
 
-    @Get('/deputats')
+    @Post('/deputats')
     getDeputats(@Body() { limit, page, query, order }) {
         return this.userService.getDeputats(limit, page, query, order);
     }

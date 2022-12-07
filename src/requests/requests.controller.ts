@@ -7,7 +7,6 @@ import {
     Patch,
     Post,
     Put,
-    Query,
     Req,
     UploadedFiles,
     UseGuards, UseInterceptors,
@@ -27,7 +26,7 @@ export class RequestsController {
 
     @Roles('ADMIN', 'DEPUTAT')
     @UseGuards(RolesGuard)
-    @Get()
+    @Post('/get')
     getAll(@Body() { limit, page, query, order }: RequestsQueryParamsDto) {
         return this.requestsService.getAll(limit, page, query, order);
     }

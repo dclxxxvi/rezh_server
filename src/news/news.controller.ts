@@ -3,22 +3,17 @@ import {
     Body,
     Controller,
     Delete,
-    FileTypeValidator,
     Get,
     HttpStatus,
-    MaxFileSizeValidator,
     Param,
-    ParseFilePipe,
     ParseFilePipeBuilder,
     Post,
     Put,
-    Query,
     Req,
     UploadedFile,
     UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { NewsService } from './news.service';
@@ -49,7 +44,7 @@ export class NewsController {
         return this.newsService.create(dto, image, req.user.id);
     }
 
-    @Get()
+    @Post('/get')
     getAll(@Body() { query, page, order, limit }: NewsQueryParamsDto) {
         return this.newsService.getAll(limit, page, query, order);
     }

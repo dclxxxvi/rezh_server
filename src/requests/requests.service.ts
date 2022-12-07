@@ -33,8 +33,9 @@ export class RequestsService {
                 }),
                 ...(query?.deputat_id && { deputat_id: query?.deputat_id }),
                 ...(query?.user_id && { user_id: query?.user_id }),
-                ...(query?.moderated && { moderated: query?.moderated }),
-                ...(query?.approved && { approved: query?.approved }),
+                ...(query?.frequent !== undefined && { frequent: query?.frequent }),
+                ...(query?.moderated !== undefined && { moderated: query?.moderated }),
+                ...(query?.approved !== undefined && { approved: query?.approved }),
             },
             limit,
             offset,
@@ -71,7 +72,8 @@ export class RequestsService {
         const user_id = this.jwtService.verify(req.headers.authorization?.split(' ')?.[1])?.id;
         const files = this.filesService.createFiles(FileType.REQUESTS_FILES, _files);
         const deputat = dto.deputat_id && await this.usersService.getById(dto.deputat_id);
-        const request = await this.requestRepository.create({ ...dto, files, user_id });
+        const request = await this.requestRepository
+            .create({ ...dto, files, user_id, moderated: false, approved: false, frequent: false, moderating_text: undefined });
         if (deputat) {
             await request.$set('deputat', deputat);
             await request.save();
@@ -84,7 +86,7 @@ export class RequestsService {
         const existing = await this.getById(id);
         const user_id = this.jwtService.verify(req.headers.authorization?.split(' ')?.[1])?.id;
 
-        if (!existing && user_id !== existing.user_id) {
+        if (!existing || user_id !== existing.user_id) {
             throw new BadRequestException({}, 'Обращения не существует');
         }
         if (_files && existing.files) {
@@ -95,7 +97,7 @@ export class RequestsService {
             : existing.files;
 
         const updated = await this.requestRepository
-            .update({ ...dto, files, moderated: false, approved: false, moderating_text: undefined }, {
+            .update({ ...dto, files, moderated: false, approved: false, moderating_text: undefined, frequent: false }, {
                 where: { id },
                 returning: true,
             });

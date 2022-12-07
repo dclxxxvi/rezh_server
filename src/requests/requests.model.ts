@@ -1,4 +1,4 @@
-import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { RequestAnswer } from "../requests-answers/requests-answers.model";
 import { User } from '../users/users.model';
 
@@ -14,6 +14,7 @@ interface CreateRequestAttrs {
 	readonly phone_number: string;
 	readonly organization_name: string;
 	readonly deputat_id: number;
+	readonly frequent: boolean;
 	readonly moderated: boolean;
 	readonly approved: boolean;
 	readonly moderating_text: string;

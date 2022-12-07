@@ -9,6 +9,7 @@ export interface RequestsQuery {
     search?: string;
     deputat_id?: number;
     user_id?: number;
+    frequent?: boolean;
     moderated?: boolean;
     approved?: boolean;
 }
