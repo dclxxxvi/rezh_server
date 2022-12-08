@@ -12,4 +12,5 @@ export interface RequestsQuery {
     frequent?: boolean;
     moderated?: boolean;
     approved?: boolean;
+    answered?: boolean;
 }

@@ -36,6 +36,7 @@ export class RequestsService {
                 ...(query?.frequent !== undefined && { frequent: query?.frequent }),
                 ...(query?.moderated !== undefined && { moderated: query?.moderated }),
                 ...(query?.approved !== undefined && { approved: query?.approved }),
+                ...(query?.answered !== undefined && { answer_id: query?.answered ? { [Op.gte]: 0 } : null }),
             },
             limit,
             offset,
