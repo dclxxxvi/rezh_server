@@ -9,7 +9,7 @@ import { ModerateRequestDto } from './dto/moderate-request.dto';
 import { RequestAnswer } from '../requests-answers/requests-answers.model';
 import { User } from '../users/users.model';
 import { UsersService } from '../users/users.service';
-import { RequestsQuery, RequestsQueryParamsDto } from './dto/requests-query-params.dto';
+import { RequestsQuery } from './dto/requests-query-params.dto';
 import { Op } from 'sequelize';
 
 @Injectable()
@@ -38,6 +38,9 @@ export class RequestsService {
                 ...(query?.approved !== undefined && { approved: query?.approved }),
                 ...(query?.answered !== undefined && { answer_id: query?.answered ? { [Op.gte]: 0 } : null }),
             },
+            order: [
+                ['updatedAt', 'DESC'],
+            ],
             limit,
             offset,
             include: [{
@@ -124,6 +127,7 @@ export class RequestsService {
         const moderated = await this.requestRepository.update({ ...dto, moderated: true }, {
             where: { id },
             returning: true,
+            silent: true,
         });
         return moderated;
     }
