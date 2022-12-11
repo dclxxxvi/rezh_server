@@ -48,7 +48,7 @@ export class UsersService {
         return user;
     }
 
-    async create(dto: CreateUserDto, avatar?: Express.Multer.File): Promise<User> {
+    async create(dto: CreateUserDto, _avatar?: Express.Multer.File): Promise<User> {
         const existedUser = await this.getByEmail(dto.email);
         if (existedUser) {
             throw new HttpException('Пользователь с таким email уже существует', HttpStatus.BAD_REQUEST);
@@ -58,7 +58,14 @@ export class UsersService {
             throw new HttpException('Роль USER не определена', HttpStatus.BAD_REQUEST);
         }
 
-        const user = await this.userRepository.create({ ...dto });
+        if (_avatar && existedUser?.avatar) {
+            this.filesService.removeFile(existedUser.avatar);
+        }
+        const avatar = _avatar
+            ? this.filesService.createFile(FileType.NEWS_IMAGE, _avatar)
+            : existedUser?.avatar;
+
+        const user = await this.userRepository.create({ ...dto, avatar });
         user.$set('roles', [role.id]);
         user.roles = [role];
         return user;

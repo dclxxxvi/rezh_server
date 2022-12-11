@@ -40,7 +40,8 @@ export class UsersController {
     }
 
     @Post()
-    create(@Body() userDto: CreateUserDto) {
+    @UseInterceptors(FileInterceptor('avatar'))
+    create(@Body() userDto: CreateUserDto, @UploadedFile() avatar: Express.Multer.File) {
         return this.userService.create(userDto);
     }
 

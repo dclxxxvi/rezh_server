@@ -8,8 +8,6 @@ import { RolesService } from './roles.service';
 export class RolesController {
 	constructor(private rolesService: RolesService) {}
 
-	@Roles("USER")
-	@UseGuards(RolesGuard)
     @Post()
     create(@Body() dto: CreateRoleDto) {
         return this.rolesService.createRole(dto);
@@ -28,5 +26,10 @@ export class RolesController {
 	@Delete('/:value')
 	deleteByValue(@Param('value') value: string) {
 		return this.rolesService.deleteRoleByValue(value);
+	}
+
+	@Post('/configure_roles')
+	configureRoles() {
+		return this.rolesService.configureRoles();
 	}
 }

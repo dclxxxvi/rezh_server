@@ -29,16 +29,16 @@ export class AuthService {
 
 	async login(dto: AuthUserDto) {
 		const user = await this.validateUser(dto);
-		return this.generateToken(user);
+		return await this.generateToken(user);
 	}
 
-	async registration(userDto: CreateUserDto) {
+	async registration(userDto: CreateUserDto, avatar: Express.Multer.File) {
         const candidate = await this.usersService.getByEmail(userDto.email);
         if (candidate) {
             throw new HttpException('Пользователь с таким email уже существует', HttpStatus.BAD_REQUEST);
         }
         const hashPassword = await bcrypt.hash(userDto.password, 5);
-        const user = await this.usersService.create({...userDto, password: hashPassword});
+        const user = await this.usersService.create({...userDto, password: hashPassword}, avatar);
         return this.generateToken(user);
     }
 

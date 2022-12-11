@@ -18,9 +18,12 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6NSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6NSwicm9sZV9pZCI6MX19LHsiaWQiOjIsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6ItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjo1LCJyb2xlX2lkIjoyfX1dLCJpYXQiOjE2NjY0NTg1OTIsImV4cCI6MTY2NjQ1ODYwN30.Whk8KSuRhyJY0qinHMjB2edxBnrX-tlpDb7TOB_z0Ws
 
 {
-    "value": "DEPUTAT",
-    "description": "Депутат"
+    "value": "ADMIN",
+    "description": "Администратор"
 }
+
+### Сконфигурировать роли
+POST http://localhost:5000/roles/configure_roles HTTP/1.1
 
 ### Получить роль по названию
 http://localhost:5000/roles/USER
@@ -45,7 +48,7 @@ POST http://localhost:5000/auth/registration
 content-type: application/json
 
 {
-	"email": "deputat1235@mail.ru",
+	"email": "deputat@mail.ru",
     "password": "12345",
     "first_name": "Сява",
     "second_name": "Васечкин",
@@ -82,7 +85,7 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6NSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6NSwicm9sZV9pZCI6MX19LHsiaWQiOjIsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6ItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjo1LCJyb2xlX2lkIjoyfX1dLCJpYXQiOjE2NjY0NTY5MTYsImV4cCI6MTY3NDIzMjkxNn0.og6U6_b8wGEVxVjAROJt_KT4Y3eTiomtcf6hwFVxAcE
 
 {
-    "userId": 4,
+    "userId": 3,
     "value": "DEPUTAT"
 }
 

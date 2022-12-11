@@ -27,4 +27,10 @@ export class RolesService {
 		const role = await this.roleRepository.destroy({where: {value}});
 		return `Роль ${value} успешно удалена`;
 	}
+
+	async configureRoles() {
+		await this.createRole({value: 'USER', description: 'Пользователь'});
+		await this.createRole({value: 'DEPUTAT', description: 'Депутат'});
+		await this.createRole({value: 'ADMIN', description: 'Администратор'});
+	}
 }
