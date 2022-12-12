@@ -31,7 +31,7 @@ export class RequestsService {
                         text: { [Op.iLike]: `%${ query?.search }%` },
                     },
                 }),
-                ...(query?.deputat_id && { deputat_id: query?.deputat_id }),
+                ...(query?.deputat_id !== undefined && { deputat_id: query?.deputat_id }),
                 ...(query?.user_id && { user_id: query?.user_id }),
                 ...(query?.frequent !== undefined && { frequent: query?.frequent }),
                 ...(query?.moderated !== undefined && { moderated: query?.moderated }),
@@ -73,7 +73,10 @@ export class RequestsService {
     }
 
     async create(dto: CreateRequestDto, req: IRequest, _files: Express.Multer.File[]) {
-        const user_id = this.jwtService.verify(req.headers.authorization?.split(' ')?.[1])?.id;
+        let user_id = undefined;
+        if (req.headers.authorization) {
+            user_id = this.jwtService.verify(req.headers.authorization?.split(' ')?.[1])?.id;
+        }
         const files = this.filesService.createFiles(FileType.REQUESTS_FILES, _files);
         const deputat = dto.deputat_id && await this.usersService.getById(dto.deputat_id);
         const request = await this.requestRepository
