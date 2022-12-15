@@ -13,6 +13,7 @@ interface CreateUserAttrs {
 	readonly father_name: string;
 	readonly phone_number: string;
 	readonly organization_name: string;
+	readonly description: string;
 }
 
 @Table({tableName: 'users'})
@@ -40,6 +41,9 @@ export class User extends Model<User, CreateUserAttrs> {
 
 	@Column({type: DataType.STRING})
 	organization_name: string;
+
+	@Column({type: DataType.STRING})
+	description: string;
 
 	@Column({type: DataType.STRING})
 	avatar: string;

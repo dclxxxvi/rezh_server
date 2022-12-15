@@ -12,4 +12,6 @@ export class CreateUserDto {
 	readonly first_name: string;
 	readonly second_name: string;
 	readonly father_name: string;
+	readonly phone_number: string;
+	readonly description: string;
 }
