@@ -8,12 +8,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from '../users/users.model';
 import { UsersModule } from '../users/users.module';
+import { TagsRequests } from '../tags/tags-requests.model';
 
 @Module({
   controllers: [RequestsController],
   providers: [RequestsService],
   imports: [
-      SequelizeModule.forFeature([Request, User]),
+      SequelizeModule.forFeature([Request, User, TagsRequests]),
       FilesModule,
       UsersModule,
       JwtModule.registerAsync({

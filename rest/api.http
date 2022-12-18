@@ -1,3 +1,6 @@
+rezhserver-production.up.railway.app
+
+
 ### Получить всех пользователей
 GET http://localhost:5000/users HTTP/1.1
 Content-Type: application/json
@@ -22,11 +25,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQ
     "description": "Администратор"
 }
 
+### Добавить новую роль
+POST http://rezhserver-production.up.railway.app/roles HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6NSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6NSwicm9sZV9pZCI6MX19LHsiaWQiOjIsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6ItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjo1LCJyb2xlX2lkIjoyfX1dLCJpYXQiOjE2NjY0NTg1OTIsImV4cCI6MTY2NjQ1ODYwN30.Whk8KSuRhyJY0qinHMjB2edxBnrX-tlpDb7TOB_z0Ws
+
+{
+  "value": "USER",
+  "description": "Пользователь"
+}
+
+### Сконфигурировать роли
+POST http://rezhserver-production.up.railway.app/roles/configure_roles HTTP/1.1
+
 ### Сконфигурировать роли
 POST http://localhost:5000/roles/configure_roles HTTP/1.1
 
 ### Получить роль по названию
 http://localhost:5000/roles/USER
+
+### Получить все роли
+GET http://rezhserver-production.up.railway.app/roles
 
 ### Получить все роли
 http://localhost:5000/roles
@@ -48,9 +67,9 @@ POST http://localhost:5000/auth/registration
 content-type: application/json
 
 {
-	"email": "deputat@mail.ru",
+	"email": "admin@mail.ru",
     "password": "12345",
-    "first_name": "Сява",
+    "first_name": "Петя",
     "second_name": "Васечкин",
     "father_name": "Петрович"
 
@@ -82,10 +101,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQ
 ### Добавить роль
 POST http://localhost:5000/users/role HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpZCI6NSwicm9sZXMiOlt7ImlkIjoxLCJ2YWx1ZSI6IlVTRVIiLCJkZXNjcmlwdGlvbiI6ItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIsImNyZWF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsInVwZGF0ZWRBdCI6IjIwMjItMTAtMjBUMDg6MzA6MDMuNDI0WiIsIlVzZXJSb2xlcyI6eyJpZCI6MywidXNlcl9pZCI6NSwicm9sZV9pZCI6MX19LHsiaWQiOjIsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6ItCQ0LTQvNC40L3QuNGB0YLRgNCw0YLQvtGAIiwiY3JlYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwidXBkYXRlZEF0IjoiMjAyMi0xMC0yMFQxOTowOTowOS4wMjlaIiwiVXNlclJvbGVzIjp7ImlkIjo0LCJ1c2VyX2lkIjo1LCJyb2xlX2lkIjoyfX1dLCJpYXQiOjE2NjY0NTY5MTYsImV4cCI6MTY3NDIzMjkxNn0.og6U6_b8wGEVxVjAROJt_KT4Y3eTiomtcf6hwFVxAcE
 
 {
-    "userId": 1,
+    "userId": 2,
     "value": "ADMIN"
 }
 

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rezh-service
+spec:
+  selector:
+    app: rezh-service
+  ports:
+    - protocol: TCP
+      port: 3000
+  type: NodePort

@@ -3,6 +3,8 @@ import { Role } from "src/roles/roles.model";
 import { UserRoles } from "src/roles/user-roles.model";
 import { RequestAnswer } from '../requests-answers/requests-answers.model';
 import { Request } from '../requests/requests.model';
+import { TagsUsers } from '../tags/tags-users.model';
+import { Tags } from '../tags/tags.model';
 
 interface CreateUserAttrs {
 	readonly email: string;
@@ -56,4 +58,7 @@ export class User extends Model<User, CreateUserAttrs> {
 
 	@HasMany(() => Request)
 	requests: Request[];
+
+	@BelongsToMany(() => Tags, () => TagsUsers)
+	tags: Tags[];
 }

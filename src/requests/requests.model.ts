@@ -1,6 +1,8 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, BelongsToMany, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { RequestAnswer } from "../requests-answers/requests-answers.model";
 import { User } from '../users/users.model';
+import { Tags } from '../tags/tags.model';
+import { TagsRequests } from '../tags/tags-requests.model';
 
 interface CreateRequestAttrs {
 	readonly title: string;
@@ -80,4 +82,7 @@ export class Request extends Model<Request, CreateRequestAttrs> {
     @ForeignKey(() => RequestAnswer)
     @Column({type: DataType.INTEGER})
     answer_id: number;
+
+	@BelongsToMany(() => Tags, () => TagsRequests)
+	tags: Tags[];
 }

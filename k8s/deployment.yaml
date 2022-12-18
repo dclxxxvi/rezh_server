@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rezh-service
+spec:
+  selector:
+    matchLabels:
+      app: rezh-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: rezh-service
+    spec:
+      containers:
+        - name: rezh-service
+          image: dclxxxvi/rezh-service
+          ports:
+            - containerPort: 3000

@@ -7,13 +7,15 @@ import { UsersController } from './users.controller';
 import { User } from './users.model';
 import { UsersService } from './users.service';
 import { FilesModule } from '../files/files.module';
+import { TagsUsers } from '../tags/tags-users.model';
+import { Tags } from '../tags/tags.model';
 
 @Module({
     controllers: [UsersController],
     providers: [UsersService],
     exports: [UsersService],
     imports: [
-        SequelizeModule.forFeature([User, Role, UserRoles]),
+        SequelizeModule.forFeature([User, Role, UserRoles, Tags, TagsUsers]),
         RolesModule,
         FilesModule,
     ],

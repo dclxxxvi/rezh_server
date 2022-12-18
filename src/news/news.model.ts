@@ -1,4 +1,6 @@
 import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import { Tags } from '../tags/tags.model';
+import { TagsNews } from '../tags/tags-news.model';
 
 interface NewsCreationAttrs {
 	title: string;
@@ -16,6 +18,9 @@ export class News extends Model<News, NewsCreationAttrs> {
     @Column({type: DataType.STRING, allowNull: false})
     title: string;
 
+    @Column({type: DataType.STRING})
+    subtitle: string;
+
     @Column({type: DataType.STRING, allowNull: false})
     content: string;
 
@@ -24,4 +29,7 @@ export class News extends Model<News, NewsCreationAttrs> {
 
     @Column({type: DataType.INTEGER, allowNull: false})
     created_by: number;
+
+    @BelongsToMany(() => Tags, () => TagsNews)
+    tags: Tags[];
 }
