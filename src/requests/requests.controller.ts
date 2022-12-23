@@ -24,7 +24,7 @@ import { RequestsQueryParamsDto } from './dto/requests-query-params.dto';
 export class RequestsController {
     constructor(private requestsService: RequestsService) {}
 
-    @Roles('ADMIN', 'DEPUTAT')
+    @Roles('ADMIN', 'DEPUTAT', 'USER')
     @UseGuards(RolesGuard)
     @Post('/get')
     getAll(@Body() { limit, page, query, order }: RequestsQueryParamsDto) {
