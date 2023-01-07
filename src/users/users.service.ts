@@ -62,7 +62,7 @@ export class UsersService {
             this.filesService.removeFile(existedUser.avatar);
         }
         const avatar = _avatar
-            ? this.filesService.createFile(FileType.NEWS_IMAGE, _avatar)
+            ? this.filesService.createFile(FileType.AVATARS_IMAGES, _avatar)
             : existedUser?.avatar;
 
         const user = await this.userRepository.create({ ...dto, avatar });
@@ -80,7 +80,7 @@ export class UsersService {
             this.filesService.removeFile(user.avatar);
         }
         const avatar = _avatar
-            ? this.filesService.createFile(FileType.NEWS_IMAGE, _avatar)
+            ? this.filesService.createFile(FileType.AVATARS_IMAGES, _avatar)
             : user.avatar;
 
         const updated = await this.userRepository
